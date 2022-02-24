@@ -8,8 +8,6 @@
     - Create "Hero Card" view. Print variables to console
 */
 
-using System;
-
 namespace SuperHero // Note: actual namespace depends on the project name.
 {
     internal class Program
