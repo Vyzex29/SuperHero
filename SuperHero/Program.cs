@@ -20,7 +20,6 @@ namespace SuperHero // Note: actual namespace depends on the project name.
             heroPower1 = "Can compile .net code in his mind";
             heroPower2 = "Knows all of .net versions quirks";
             heroPower3 = "Knows all the answers to your .net questions";
-
             Console.WriteLine("********************************************");
             Console.WriteLine($"Hero: {name}");
             Console.WriteLine("Age: " + age + " year old");
