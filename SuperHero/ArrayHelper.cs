@@ -20,5 +20,12 @@
             return list.ToArray();
         }
 
+        public static string[] Remove<T>(this string[] array, string position)
+        {
+            List<string> list = new List<string>(array);
+            list.Remove(position);
+
+            return list.ToArray();
+        }
     }
 }

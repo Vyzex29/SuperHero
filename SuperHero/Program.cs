@@ -16,7 +16,14 @@ namespace SuperHero // Note: actual namespace depends on the project name.
         static void Main(string[] args)
         {
             string[] superHeroNameList = { ".Net man","Superman","Barman","Batman" };
+            int[] superHeroAgeList = { 20, 21, 23, 24 };
 
+            string[,] superHeroPowers2D = {
+                { "power1", "laser eyes", "great beer" },
+                { "flight","2", "3" },
+                {"beer", "vodka", "gin" },
+                {"bat","car", "robin" }
+            };
             bool isMenuRunning = true;
             do
             {
@@ -44,10 +51,12 @@ namespace SuperHero // Note: actual namespace depends on the project name.
                         break;
                     case "2":
                         Console.WriteLine($"Please choose a superhero by number");
+
                         for (int i = 0; i < superHeroNameList.Length; i++)
                         {
                             Console.WriteLine($"{i}. {superHeroNameList[i]}");
                         }
+
                         int.TryParse(Console.ReadLine(), out int chosenNumber);
                         Console.WriteLine($"You have chosen {superHeroNameList[chosenNumber]}");
 
@@ -59,8 +68,12 @@ namespace SuperHero // Note: actual namespace depends on the project name.
                         {
                             Console.WriteLine("*********************GENERAL INFO******************");
                             Console.WriteLine($"Hero: {superHeroNameList[chosenNumber]}");
-                            Console.WriteLine("Age: " + 20 + " year old");
-                            Console.WriteLine("Hero powers: \n {0}, \n {1},\n {2}\n", "power1", "power2", "power3");
+                            Console.WriteLine($"Age:  {superHeroAgeList[chosenNumber]} year old");
+                            Console.WriteLine($"Hero powers2d array: \n ");
+                            for (int i = 0; i < superHeroPowers2D.GetLength(1); i++)
+                            {
+                                Console.WriteLine($"{i}. {superHeroPowers2D[chosenNumber,i]} ");
+                            }
                             Console.WriteLine("******************************************** \n \n");
                         }else if(showMenu == "2")
                         {
@@ -96,7 +109,14 @@ namespace SuperHero // Note: actual namespace depends on the project name.
                         Console.WriteLine($"SuperHero {superHeroName} Added!");
                         break;
                     case "4":
-                        superHeroNameList = superHeroNameList.Remove(3);
+                        Console.WriteLine("Which superhero to remove?");
+                        for (int i = 0; i < superHeroNameList.Length; i++)
+                        {
+                            Console.WriteLine($"{i}. {superHeroNameList[i]}");
+                        }
+                        int.TryParse(Console.ReadLine(),out int positionToRemove);
+                        Console.WriteLine($"SuperHero {superHeroNameList[positionToRemove]} Removed!");
+                        superHeroNameList = superHeroNameList.Remove(positionToRemove);
                         break;
                     case "5":
                         isMenuRunning = false;
