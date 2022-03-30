@@ -1,20 +1,26 @@
-﻿/*
-## Lesson 3 - Variables and Data Types
-
-- Create variables:
-    - Hero name - String
-    - Hero age - int
-    - Hero powers - heroPower1, heroPower2, heroPower3
-    - Create "Hero Card" view. Print variables to console
-*/
-
+﻿
 namespace SuperHero // Note: actual namespace depends on the project name.
 {
     internal class Program
     {
-       
         static void Main(string[] args)
         {
+            Hero defaultHero = new Hero();
+            Hero netMan = new Hero("Valera", "Dik", ".NetMan",1,HeroType.Hero, 21);
+            Hero sonic = new Hero("Kent","Clark","Sonic", 2, HeroType.Hero, 46);
+            List<Hero> metropole = new List<Hero>();
+            metropole.Add(defaultHero);
+            metropole.Add(netMan);
+            metropole.Add(sonic);
+            /*var foundHero = metropole.Find(find => find.Name == "Valera");
+            Console.WriteLine($"We found {foundHero.Nickname}");
+            metropole.Remove(foundHero);
+
+            for (int i = 0; i < metropole.Count; i++)
+            {
+               Console.WriteLine(metropole[i].Nickname);
+            }*/
+
             string[] superHeroNameList = { ".Net man","Superman","Barman","Batman" };
             int[] superHeroAgeList = { 20, 21, 23, 24 };
 
@@ -24,6 +30,7 @@ namespace SuperHero // Note: actual namespace depends on the project name.
                 {"beer", "vodka", "gin" },
                 {"bat","car", "robin" }
             };
+
             bool isMenuRunning = true;
             do
             {
@@ -35,7 +42,8 @@ namespace SuperHero // Note: actual namespace depends on the project name.
                 Console.WriteLine($"2 - Show specific hero");
                 Console.WriteLine($"3 - Adding a superhero");
                 Console.WriteLine($"4 - Deleting a superhero");
-                Console.WriteLine($"5 - Exit");
+                Console.WriteLine($"5 - OOP hero");
+                Console.WriteLine($"6 - Exit");
 
                 menuItems = Console.ReadLine();
 
@@ -49,6 +57,7 @@ namespace SuperHero // Note: actual namespace depends on the project name.
                         }
                         Console.WriteLine("===========================================");
                         break;
+
                     case "2":
                         Console.WriteLine($"Please choose a superhero by number");
 
@@ -119,6 +128,17 @@ namespace SuperHero // Note: actual namespace depends on the project name.
                         superHeroNameList = superHeroNameList.Remove(positionToRemove);
                         break;
                     case "5":
+                        Console.WriteLine($"{defaultHero.Nickname} level is {defaultHero.CalculateLevel()}");
+                        foreach (Hero hero in metropole)
+                        {
+                            if (hero.CalculateLevel() > 1)
+                            {
+                                Console.WriteLine($"{hero.Nickname} is higher than level 1");
+                            }
+                        }
+
+                        break;
+                    case "6":
                         isMenuRunning = false;
                         Console.WriteLine($"Good bye!");
                         break;
