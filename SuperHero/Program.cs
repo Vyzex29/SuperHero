@@ -8,18 +8,12 @@ namespace SuperHero // Note: actual namespace depends on the project name.
             Hero defaultHero = new Hero();
             Hero netMan = new Hero("Valera", "Dik", ".NetMan",1,HeroType.Hero, 21);
             Hero sonic = new Hero("Kent","Clark","Sonic", 2, HeroType.Hero, 46);
-            List<Hero> metropole = new List<Hero>();
-            metropole.Add(defaultHero);
-            metropole.Add(netMan);
-            metropole.Add(sonic);
-            /*var foundHero = metropole.Find(find => find.Name == "Valera");
-            Console.WriteLine($"We found {foundHero.Nickname}");
-            metropole.Remove(foundHero);
+            List<Hero> listOfHeroes = new List<Hero>();
+            listOfHeroes.Add(defaultHero);
+            listOfHeroes.Add(netMan);
+            listOfHeroes.Add(sonic);
 
-            for (int i = 0; i < metropole.Count; i++)
-            {
-               Console.WriteLine(metropole[i].Nickname);
-            }*/
+            District kengarags = new District("Kengarags", "Riga", 1063, listOfHeroes);
 
             string[] superHeroNameList = { ".Net man","Superman","Barman","Batman" };
             int[] superHeroAgeList = { 20, 21, 23, 24 };
@@ -44,6 +38,7 @@ namespace SuperHero // Note: actual namespace depends on the project name.
                 Console.WriteLine($"4 - Deleting a superhero");
                 Console.WriteLine($"5 - OOP hero");
                 Console.WriteLine($"6 - Exit");
+                Console.WriteLine($"7 - information about district");
 
                 menuItems = Console.ReadLine();
 
@@ -129,18 +124,22 @@ namespace SuperHero // Note: actual namespace depends on the project name.
                         break;
                     case "5":
                         Console.WriteLine($"{defaultHero.Nickname} level is {defaultHero.CalculateLevel()}");
-                        foreach (Hero hero in metropole)
+                        foreach (Hero hero in listOfHeroes)
                         {
                             if (hero.CalculateLevel() > 1)
                             {
                                 Console.WriteLine($"{hero.Nickname} is higher than level 1");
                             }
                         }
+                        Console.WriteLine($"The average of level of heroes inside {kengarags.Title} is : {kengarags.CalculateAvgLevelInDistrict()}");
 
                         break;
                     case "6":
                         isMenuRunning = false;
                         Console.WriteLine($"Good bye!");
+                        break;
+                    case "7":
+                        kengarags.PrintInformationAboutDistrict();
                         break;
                     default:
                         Console.WriteLine("Please choose from the available menu!");
