@@ -52,7 +52,6 @@ namespace SuperHero // Note: actual namespace depends on the project name.
             {
                 string menuItems;
                 PrintMenu();
-
                 menuItems = Console.ReadLine();
 
                 switch (menuItems)
@@ -86,7 +85,7 @@ namespace SuperHero // Note: actual namespace depends on the project name.
                         Console.WriteLine("What is the new superhero name?");
                         string superHeroName = Console.ReadLine();
                         Hero newHero = new Hero();
-                        newHero.Name = superHeroName;
+                        newHero.Nickname = superHeroName;
                         kengarags.addNewHero(newHero);
                         Console.WriteLine($"SuperHero {superHeroName} Added!");
                         break;
