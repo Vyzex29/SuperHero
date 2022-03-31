@@ -60,7 +60,6 @@ namespace SuperHero // Note: actual namespace depends on the project name.
                     case "1":
                         kengarags.PrintListOfHeroes();
                         break;
-
                     case "2":
                         Console.WriteLine($"Please choose a superhero by number");
 
@@ -81,7 +80,6 @@ namespace SuperHero // Note: actual namespace depends on the project name.
                         {
                             kengarags.HeroesInTheDistrict[chosenNumber].PrintFinancialInfo();
                         }
-
 
                         break;
                     case "3":
