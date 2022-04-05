@@ -9,32 +9,41 @@
 
         public int  DistrinctID { get; set; }
 
-        public List<Hero> HeroesInTheDistrict { get; set; }
+        public List<Person> PeopleInTheDistrict { get; set; }
 
-        public District(string title, string city, int distrinctID, List<Hero> heroesInTheDistrict)
+        public District(string title, string city, int distrinctID, List<Person> peopleInTheDistrict)
         {
             Title = title;
             City = city;
             DistrinctID = distrinctID;
-            HeroesInTheDistrict = heroesInTheDistrict;
+            PeopleInTheDistrict = peopleInTheDistrict;
         }
 
-        public void addNewHero(Hero hero)
+        public void addNewHero()
         {
-            HeroesInTheDistrict.Add(hero);
+            Console.WriteLine("What is the new superhero name?");
+            string superHeroName = Console.ReadLine();
+            Hero newHero = new Hero();
+            newHero.Nickname = superHeroName;
+            Console.WriteLine($"SuperHero {superHeroName} Added!");
+            PeopleInTheDistrict.Add(newHero);
         }
 
-        public void RemoveHero(int index)
+        public void RemovePerson()
         {
-            HeroesInTheDistrict.RemoveAt(index);
+            Console.WriteLine("Which person to remove?");
+            PrintListOfPeople();
+            int.TryParse(Console.ReadLine(), out int positionToRemove);
+            Console.WriteLine($"Person {PeopleInTheDistrict[positionToRemove]} Removed!");
+            PeopleInTheDistrict.RemoveAt(positionToRemove);
         }
 
-        public void PrintListOfHeroes()
+        public void PrintListOfPeople()
         {
-            Console.WriteLine("============List=of=superheroes============");
-            for (int i = 0; i < HeroesInTheDistrict.Count; i++)
+            Console.WriteLine("============List=Of=People============");
+            for (int i = 0; i < PeopleInTheDistrict.Count; i++)
             {
-                Console.WriteLine($"{i}. {HeroesInTheDistrict[i].Nickname}");
+                Console.WriteLine($"{i}. {PeopleInTheDistrict[i].Nickname}");
             }
             Console.WriteLine("===========================================");
         }
@@ -43,13 +52,37 @@
         {
             float MaxLevel = 0f;
 
-            foreach (var hero in HeroesInTheDistrict)
+            foreach (var hero in PeopleInTheDistrict)
             {
                 MaxLevel += hero.CalculateLevel();
             }
-            var averageLevel = MaxLevel / HeroesInTheDistrict.Count;
+            var averageLevel = MaxLevel / PeopleInTheDistrict.Count;
 
             return averageLevel;
+        }
+
+        public void PrintOutSpecificPerson()
+        {
+            Console.WriteLine($"Please choose a superhero by number");
+
+            PrintListOfPeople();
+
+            int.TryParse(Console.ReadLine(), out int chosenNumber);
+            Console.WriteLine($"You have chosen {PeopleInTheDistrict[chosenNumber].Nickname}");
+
+            Console.WriteLine("Choose what type of info to show");
+            Console.WriteLine($"1 - GENERAL INFO");
+            Console.WriteLine($"2 - FINANCIAL INFO");
+            string showMenu = Console.ReadLine();
+            if (showMenu == "1")
+            {
+                PeopleInTheDistrict[chosenNumber].PrintGeneralInfo();
+            }
+            else if (showMenu == "2")
+            {
+                PeopleInTheDistrict[chosenNumber].PrintFinancialInfo();
+            }
+
         }
     }
 }

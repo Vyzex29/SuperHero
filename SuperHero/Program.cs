@@ -8,15 +8,14 @@ namespace SuperHero // Note: actual namespace depends on the project name.
             Hero defaultHero = new Hero();
 
             string[,] superHeroPowers2D = {
-                { "power1", "laser eyes", "great beer" },
-                { "flight","2", "3" },
+                { "flight","laser eyes", "X-Ray vision" },
                 {"beer", "vodka", "gin" },
                 {"bat","car", "robin" }
             };
 
             for (int i = 0; i < superHeroPowers2D.GetLength(1); i++)
             {
-                defaultHero.HeroPowerList.Add(superHeroPowers2D[0,i]);
+                defaultHero.PowerList.Add(superHeroPowers2D[0,i]);
             }
             var netManHeroPowers = new List<string>();
             for (int i = 0; i < superHeroPowers2D.GetLength(1); i++)
@@ -29,23 +28,17 @@ namespace SuperHero // Note: actual namespace depends on the project name.
             {
                 sonicHeroPower.Add(superHeroPowers2D[2, i]);
             }
-            Hero netMan = new Hero("Valera", "Dik", ".NetMan",1,HeroType.Hero, 21, netManHeroPowers, 20);
-            Hero sonic = new Hero("Kent","Clark","Sonic", 2, HeroType.Hero, 46,sonicHeroPower, 24 );
-            List<Hero> metropole = new List<Hero>();
-            metropole.Add(defaultHero);
-            metropole.Add(netMan);
-            metropole.Add(sonic);
-            District kengarags = new District("Kengarags", "Riga", 0, metropole);
+            Hero netMan = new Hero("Valera", "Dik", ".NetMan",1, 21, netManHeroPowers, 20);
+            Hero sonic = new Hero("Kent","Clark","Sonic", 2, 46,sonicHeroPower, 24 );
+            Villain amy = new Villain("Amy", "Killiko","Killer Amy",25, new List<string> { "Fast", "Killer gaze", "Sleeping touch"}, 0, 40);
+            
+            List<Person> kengaragsHeroList = new List<Person>();
+            kengaragsHeroList.Add(defaultHero);
+            kengaragsHeroList.Add(netMan);
+            kengaragsHeroList.Add(sonic);
+            kengaragsHeroList.Add(amy);
 
-            /*var foundHero = metropole.Find(find => find.Name == "Valera");
-            Console.WriteLine($"We found {foundHero.Nickname}");
-            metropole.Remove(foundHero);
-
-            for (int i = 0; i < metropole.Count; i++)
-            {
-               Console.WriteLine(metropole[i].Nickname);
-            }*/
-
+            District kengarags = new District("Kengarags", "Riga", 0, kengaragsHeroList);
 
             bool isMenuRunning = true;
             do
@@ -57,52 +50,23 @@ namespace SuperHero // Note: actual namespace depends on the project name.
                 switch (menuItems)
                 {
                     case "1":
-                        kengarags.PrintListOfHeroes();
+                        kengarags.PrintListOfPeople();
                         break;
                     case "2":
-                        Console.WriteLine($"Please choose a superhero by number");
-
-                        kengarags.PrintListOfHeroes();
-
-                        int.TryParse(Console.ReadLine(), out int chosenNumber);
-                        Console.WriteLine($"You have chosen {kengarags.HeroesInTheDistrict[chosenNumber].Nickname}");
-
-                        Console.WriteLine("Choose what type of info to show");
-                        Console.WriteLine($"1 - GENERAL INFO");
-                        Console.WriteLine($"2 - FINANCIAL INFO");
-                        string showMenu = Console.ReadLine();
-                        if (showMenu == "1")
-                        {
-                            kengarags.HeroesInTheDistrict[chosenNumber].PrintGeneralInfo();
-                        }
-                        else if (showMenu == "2")
-                        {
-                            kengarags.HeroesInTheDistrict[chosenNumber].PrintFinancialInfo();
-                        }
-
+                        kengarags.PrintOutSpecificPerson();
                         break;
                     case "3":
-                        Console.WriteLine("What is the new superhero name?");
-                        string superHeroName = Console.ReadLine();
-                        Hero newHero = new Hero();
-                        newHero.Nickname = superHeroName;
-                        kengarags.addNewHero(newHero);
-                        Console.WriteLine($"SuperHero {superHeroName} Added!");
+                        kengarags.addNewHero();
                         break;
                     case "4":
-                        Console.WriteLine("Which superhero to remove?");
-                        kengarags.PrintListOfHeroes();
-                        int.TryParse(Console.ReadLine(), out int positionToRemove);
-                        Console.WriteLine($"SuperHero {kengarags.HeroesInTheDistrict[positionToRemove]} Removed!");
-                        kengarags.RemoveHero(positionToRemove);
+                        kengarags.RemovePerson();
                         break;
                     case "5":
-                        Console.WriteLine($"{defaultHero.Nickname} level is {defaultHero.CalculateLevel()}");
-                        foreach (Hero hero in kengarags.HeroesInTheDistrict)
+                        foreach (Person person in kengarags.PeopleInTheDistrict)
                         {
-                            if (hero.CalculateLevel() > 1)
+                            if (person.CalculateLevel() > 1)
                             {
-                                Console.WriteLine($"{hero.Nickname} is higher than level 1");
+                                Console.WriteLine($"{person.Nickname} is higher than level 1");
                             }
                         }
                         break;
