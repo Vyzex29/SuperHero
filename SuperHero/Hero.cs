@@ -1,59 +1,30 @@
 ﻿namespace SuperHero
 {
-    public enum HeroType
+
+    internal class Hero : Person
     {
-        Hero,
-        Villain
-    }
-
-    internal class Hero
-    {
-        public string Name { get; set; }
-
-        public int Age { get; set; }
-
-        public string Surname { get; set; }
-
-        public string Nickname { get; set; }
-
         public int HeroId { get; set; }
-
-        public HeroType Type { get; set; }
 
         public int DeedTime { get; set; }
 
-        public List<string> HeroPowerList { get; set; }
-
-        public Hero()
+        public Hero() : base("John",18,"Smith","Hero", new List<string>())
         {
-            Name = "John";
-            Surname = "Smith";
-            Nickname = "Hero";
             HeroId = 0;
-            Type = HeroType.Hero;
             DeedTime = 0;
-            HeroPowerList = new List<string>();
-            Age = 18;
         }
 
         public Hero(string name, string surname, string nickname,
-            int heroId, HeroType type, int deedTime, List<string> heroPowerList, int age)
-        {
-            Name = name;
-            Surname = surname;
-            Nickname = nickname;
+            int heroId, int deedTime, List<string> powerList, int age) : base (name, age,surname,nickname,powerList)
+        {  
             HeroId = heroId;
-            Type = type;
             DeedTime = deedTime;
-            HeroPowerList = heroPowerList;
-            Age = age;
         }
 
         public void PrintInfo()
         {
             Console.WriteLine($"Name: {Name}\n Surname: {Surname}" +
                 $"\n Nickname: {Nickname}\n HeroID: {HeroId} " +
-                $"\n Type : {Type} \n Deedtime: {DeedTime}");
+                $"\n Deedtime: {DeedTime}");
         }
 
         public int CalculateLevel()
@@ -75,16 +46,11 @@
             return level;
         }
 
-        public void PrintGeneralInfo()
+        public override void PrintGeneralInfo()
         {
-            Console.WriteLine("*********************GENERAL INFO******************");
-            Console.WriteLine($"Hero: {Nickname}");
-            Console.WriteLine($"Age:  {Age} year old");
-            Console.WriteLine($"Hero powers2d array: \n ");
-            for (int i = 0; i < HeroPowerList.Count; i++)
-            {
-                Console.WriteLine($"{i}. {HeroPowerList[i]} ");
-            }
+            base.PrintGeneralInfo();
+            Console.WriteLine($"Hero DEED time: {DeedTime}");
+            Console.WriteLine($"HeroID: {HeroId}");
             Console.WriteLine("******************************************** \n \n");
         }
 

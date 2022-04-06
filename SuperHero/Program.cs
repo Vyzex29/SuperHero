@@ -16,7 +16,7 @@ namespace SuperHero // Note: actual namespace depends on the project name.
 
             for (int i = 0; i < superHeroPowers2D.GetLength(1); i++)
             {
-                defaultHero.HeroPowerList.Add(superHeroPowers2D[0,i]);
+                defaultHero.PowerList.Add(superHeroPowers2D[0, i]);
             }
             var netManHeroPowers = new List<string>();
             for (int i = 0; i < superHeroPowers2D.GetLength(1); i++)
@@ -29,13 +29,21 @@ namespace SuperHero // Note: actual namespace depends on the project name.
             {
                 sonicHeroPower.Add(superHeroPowers2D[2, i]);
             }
-            Hero netMan = new Hero("Valera", "Dik", ".NetMan",1,HeroType.Hero, 21, netManHeroPowers, 20);
-            Hero sonic = new Hero("Kent","Clark","Sonic", 2, HeroType.Hero, 46,sonicHeroPower, 24 );
-            List<Hero> metropole = new List<Hero>();
-            metropole.Add(defaultHero);
-            metropole.Add(netMan);
-            metropole.Add(sonic);
-            District kengarags = new District("Kengarags", "Riga", 0, metropole);
+            Hero netMan = new Hero("Valera", "Dik", ".NetMan", 1, 21, netManHeroPowers, 20);
+            Hero sonic = new Hero("Kent", "Clark", "Sonic", 2, 46, sonicHeroPower, 24);
+            List<Hero> kengaragsHeroes = new List<Hero>();
+            kengaragsHeroes.Add(defaultHero);
+            kengaragsHeroes.Add(netMan);
+            kengaragsHeroes.Add(sonic);
+
+            
+            Villain electro = new Villain("George", 25, "Kreed", "Electro", new List<string> {"electric hands", "lightining fast"},1,50);
+            List<Villain> villains = new List<Villain>();
+            villains.Add(electro);
+            List<Hero> purvciemHeroes = new List<Hero> ();
+            List<Villain> purvciemVillains = new List<Villain>();
+            District kengarags = new District("Kengarags", "Riga", 0, kengaragsHeroes, villains);
+            District purvciems = new District("Purvciems","Riga",1, purvciemHeroes, purvciemVillains);
 
             /*var foundHero = metropole.Find(find => find.Name == "Valera");
             Console.WriteLine($"We found {foundHero.Nickname}");
@@ -107,11 +115,19 @@ namespace SuperHero // Note: actual namespace depends on the project name.
                         }
                         break;
                     case "6":
-                        Console.WriteLine($"Average level in {kengarags.Title} is: {kengarags.CalculateAvgLevelInDistrict()}");
+                        Console.WriteLine($"Average level in {kengarags.Title} is: {kengarags.CalculateAvgHeroLevelInDistrict()}");
                         break;
                     case "7":
                         isMenuRunning = false;
                         Console.WriteLine($"Good bye!");
+                        break;
+                    case "8":
+                        kengarags.PrintListOfVillains();
+
+                        Console.WriteLine($"Total CrimeTime is :{kengarags.CalculateTotalCrimeTime()}");
+                        break;
+                    case "9":
+                        kengarags.PrintInfoAboutDistrict();
                         break;
                     default:
                         Console.WriteLine("Please choose from the available menu!");
