@@ -48,17 +48,56 @@
             Console.WriteLine("===========================================");
         }
 
-        public float CalculateAvgLevelInDistrict()
+        public float CalculateAvgHeroLevelInDistrict()
         {
             float MaxLevel = 0f;
-
-            foreach (var hero in PeopleInTheDistrict)
+            int heroCount = 0;
+            foreach (Person person in PeopleInTheDistrict)
             {
-                MaxLevel += hero.CalculateLevel();
+                if (person is Hero)
+                {
+                    MaxLevel += person.CalculateLevel();
+                    heroCount++;
+                }
             }
-            var averageLevel = MaxLevel / PeopleInTheDistrict.Count;
+            var averageHeroLevel = MaxLevel / heroCount;
 
-            return averageLevel;
+            return averageHeroLevel;
+        }
+
+        public int CalculateMaxVillainLevelInDistrict()
+        {
+            int maxLevel = 0;
+            foreach (Person person in PeopleInTheDistrict)
+            {
+                if (person is Villain)
+                {
+                    Villain villain = (Villain)person;
+                    if (maxLevel < villain.CrimeTime)
+                    {
+                        maxLevel = villain.CrimeTime;
+
+                    }
+                }
+            }
+            return maxLevel;
+        }
+
+        public void PrintMaxLevelVillainInDistrict()
+        {
+            int maxLevel = 0;
+            string maxVillainName = string.Empty;
+            var villainList = PeopleInTheDistrict.Where(person => person is Villain).ToList();
+            foreach (Person person in villainList)
+            {
+                Villain villain = (Villain)person;
+                if (maxLevel < villain.CrimeTime)
+                {
+                    maxLevel = villain.CrimeTime;
+                    maxVillainName = villain.Nickname;
+                }
+            }
+            Console.WriteLine($"The max crime time in {Title} is {maxVillainName} with {maxLevel} hours");
         }
 
         public void PrintOutSpecificPerson()

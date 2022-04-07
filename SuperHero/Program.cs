@@ -71,11 +71,15 @@ namespace SuperHero // Note: actual namespace depends on the project name.
                         }
                         break;
                     case "6":
-                        Console.WriteLine($"Average level in {kengarags.Title} is: {kengarags.CalculateAvgLevelInDistrict()}");
+                        Console.WriteLine($"Average hero level in {kengarags.Title} is: {kengarags.CalculateAvgHeroLevelInDistrict()}");
                         break;
                     case "7":
                         isMenuRunning = false;
                         Console.WriteLine($"Good bye!");
+                        break;
+                    case "8":
+                        Console.WriteLine($"The max crime time in {kengarags.Title} is {kengarags.CalculateMaxVillainLevelInDistrict()}");
+                        kengarags.PrintMaxLevelVillainInDistrict();
                         break;
                     default:
                         Console.WriteLine("Please choose from the available menu!");
