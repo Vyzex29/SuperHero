@@ -1,45 +1,23 @@
-﻿
+﻿using SuperHero.Database;
+using System.Data.SqlClient;
 namespace SuperHero // Note: actual namespace depends on the project name.
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            Hero defaultHero = new Hero();
+            DBConnection dbConnection = new DBConnection();
+            SuperpowerManager superpowerManager = new SuperpowerManager(dbConnection);
+            DeedsAndCrimeTimeCalculation deedsAndCrimeTimeCalculation = new DeedsAndCrimeTimeCalculation(dbConnection);
+            PeopleManager peopleManager = new PeopleManager(dbConnection, superpowerManager);
+            DistrictManager districtManager = new DistrictManager(dbConnection, peopleManager);
 
-            string[,] superHeroPowers2D = {
-                { "flight","laser eyes", "X-Ray vision" },
-                {"beer", "vodka", "gin" },
-                {"bat","car", "robin" }
-            };
-
-            for (int i = 0; i < superHeroPowers2D.GetLength(1); i++)
-            {
-                defaultHero.PowerList.Add(superHeroPowers2D[0,i]);
-            }
-            var netManHeroPowers = new List<string>();
-            for (int i = 0; i < superHeroPowers2D.GetLength(1); i++)
-            {
-                netManHeroPowers.Add(superHeroPowers2D[1, i]);
-            }
-
-            var sonicHeroPower = new List<string>();
-            for (int i = 0; i < superHeroPowers2D.GetLength(1); i++)
-            {
-                sonicHeroPower.Add(superHeroPowers2D[2, i]);
-            }
-            Hero netMan = new Hero("Valera", "Dik", ".NetMan",1, 21, netManHeroPowers, 20);
-            Hero sonic = new Hero("Kent","Clark","Sonic", 2, 46,sonicHeroPower, 24 );
-            Villain amy = new Villain("Amy", "Killiko","Killer Amy",25, new List<string> { "Fast", "Killer gaze", "Sleeping touch"}, 0, 40);
+            List<District> districts = districtManager.GetDistricts();
+            District kengarags = districts.FirstOrDefault(x => x.Title == "Kengarags");
+            districtManager.SetAllTheDistrictsUpWithPeople(kengarags);
+            deedsAndCrimeTimeCalculation.SetHeroDeedTime(kengarags.PeopleInTheDistrict);
+            deedsAndCrimeTimeCalculation.SetVillainCrimeTime(kengarags.PeopleInTheDistrict);
             
-            List<Person> kengaragsHeroList = new List<Person>();
-            kengaragsHeroList.Add(defaultHero);
-            kengaragsHeroList.Add(netMan);
-            kengaragsHeroList.Add(sonic);
-            kengaragsHeroList.Add(amy);
-
-            District kengarags = new District("Kengarags", "Riga", 0, kengaragsHeroList);
-
             bool isMenuRunning = true;
             do
             {
@@ -56,10 +34,10 @@ namespace SuperHero // Note: actual namespace depends on the project name.
                         kengarags.PrintOutSpecificPerson();
                         break;
                     case "3":
-                        kengarags.addNewHero();
+                        kengarags.addNewHero(peopleManager, superpowerManager);
                         break;
                     case "4":
-                        kengarags.RemovePerson();
+                        kengarags.RemovePerson(peopleManager);
                         break;
                     case "5":
                         foreach (Person person in kengarags.PeopleInTheDistrict)
@@ -86,8 +64,9 @@ namespace SuperHero // Note: actual namespace depends on the project name.
                         break;
                 }
             } while (isMenuRunning);
-            
+
         }
+
 
         private static void PrintMenu()
         {

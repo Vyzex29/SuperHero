@@ -1,16 +1,12 @@
 ﻿namespace SuperHero
 {
 
-    internal class Villain : Person
+    public class Villain : Person
     {
-        public Villain(string name, string surname, string nickname, int age, List<string> heroPowerList, int villainId, int crimeTime) 
-            : base(name, surname, nickname, age, heroPowerList)
+        public Villain(string name, string surname, string nickname, List<Superpower> heroPowerList, int villainId)
+            : base(villainId, name, surname, nickname, heroPowerList)
         {
-            VillainId = villainId;
-            CrimeTime = crimeTime;
         }
-
-        public int VillainId { get; set; }
 
         public int CrimeTime { get; set; }
 
@@ -18,14 +14,14 @@
         public override void PrintInfo()
         {
             base.PrintInfo();
-            Console.WriteLine($"\n VillainID: {VillainId} " +
+            Console.WriteLine($"\n VillainID: {Id} " +
                 $"\n CrimeTime: {CrimeTime}");
         }
 
         public override void PrintGeneralInfo()
         {
             base.PrintGeneralInfo();
-            Console.WriteLine($"VillainID: {VillainId}");
+            Console.WriteLine($"VillainID: {Id}");
             Console.WriteLine($"CrimeTime: {CrimeTime}");
             Console.WriteLine("******************************************** \n \n");
         }

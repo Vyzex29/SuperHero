@@ -1,25 +1,25 @@
 ﻿namespace SuperHero
 {
-    internal class Person
+    public class Person
     {
-        public string Name { get; set; }
+        public int Id { get; set; }
 
-        public int Age { get; set; }
+        public string Name { get; set; }
 
         public string Surname { get; set; }
 
         public string Nickname { get; set; }
 
-        public List<string> PowerList { get; set; }
+        public List<Superpower> PowerList { get; set; }
 
 
-        public Person(string name, string surname, string nickname, int age,List<string> heroPowerList)
+        public Person(int id, string name, string surname, string nickname,List<Superpower> heroPowerList)
         {
+            Id = id;
             Name = name;
             Surname = surname;
             Nickname = nickname;
             PowerList = heroPowerList;
-            Age = age;
         }
 
         public virtual void PrintInfo()
@@ -32,11 +32,10 @@
         {
             Console.WriteLine("*********************GENERAL INFO******************");
             Console.WriteLine($"Hero: {Nickname}");
-            Console.WriteLine($"Age:  {Age} year old");
-            Console.WriteLine($"Person's powers2d array: \n ");
+            Console.WriteLine($"Person's powers: \n ");
             for (int i = 0; i < PowerList.Count; i++)
             {
-                Console.WriteLine($"{i}. {PowerList[i]} ");
+                Console.WriteLine($"{i}. {PowerList[i].Name} ");
             }
         }
 

@@ -1,8 +1,8 @@
-﻿namespace SuperHero
+﻿using SuperHero.Database;
+namespace SuperHero
 {
-    internal class District
+    public class District
     {
-
         public string Title { get; set; }
 
         public string City { get; set; }
@@ -11,29 +11,43 @@
 
         public List<Person> PeopleInTheDistrict { get; set; }
 
-        public District(string title, string city, int distrinctID, List<Person> peopleInTheDistrict)
+        public District(string title, string city, int distrinctID)
         {
             Title = title;
             City = city;
             DistrinctID = distrinctID;
-            PeopleInTheDistrict = peopleInTheDistrict;
+            PeopleInTheDistrict = new List<Person>();
         }
 
-        public void addNewHero()
+        public void addNewHero(PeopleManager peopleManager, SuperpowerManager superpowerManager)
         {
             Console.WriteLine("What is the new superhero name?");
             string superHeroName = Console.ReadLine();
-            Hero newHero = new Hero();
-            newHero.Nickname = superHeroName;
-            Console.WriteLine($"SuperHero {superHeroName} Added!");
-            PeopleInTheDistrict.Add(newHero);
+            Console.WriteLine("What is the new superhero surname?");
+            string superHeroSurname = Console.ReadLine();
+            Console.WriteLine("What is the new superhero nickname?");
+            string superHeroNickname = Console.ReadLine();
+            Console.WriteLine("What is the new superhero superpower?");
+            string heroPower = Console.ReadLine();
+
+            var personAdded = peopleManager.InsertAHeroInDB(superHeroName, superHeroSurname, superHeroNickname, DistrinctID);
+            if (personAdded) 
+            {
+                var person = peopleManager.FindAHero(superHeroName, superHeroSurname, superHeroNickname, DistrinctID);
+                var superPower = superpowerManager.AddASuperPower(heroPower, person.Id);
+                person.PowerList.Add(superPower);
+                PeopleInTheDistrict.Add(person);
+                Console.WriteLine($"SuperHero {superHeroName} Added!");
+            }
         }
 
-        public void RemovePerson()
+        public void RemovePerson(PeopleManager peopleManager)
         {
             Console.WriteLine("Which person to remove?");
             PrintListOfPeople();
             int.TryParse(Console.ReadLine(), out int positionToRemove);
+            var person = PeopleInTheDistrict[positionToRemove];
+            peopleManager.DeleteAHero(person.Id);
             Console.WriteLine($"Person {PeopleInTheDistrict[positionToRemove]} Removed!");
             PeopleInTheDistrict.RemoveAt(positionToRemove);
         }

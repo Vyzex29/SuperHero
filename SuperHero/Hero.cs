@@ -1,33 +1,27 @@
 ﻿namespace SuperHero
 {
-    internal class Hero : Person
+    public class Hero : Person
     {
-        public int HeroId { get; set; }
-
         public int DeedTime { get; set; }
 
-        public Hero() : base("John", "Smith", "Hero",18, new List<string>())
+        public Hero() : base(1, "John", "Smith", "Hero", new List<Superpower>())
         {
-            HeroId = 0;
             DeedTime = 0;
         }
 
         public Hero(string name, string surname, string nickname,
-            int heroId, int deedTime, List<string> heroPowerList, int age) : base(name, surname,nickname,age, heroPowerList)
+            int heroId, List<Superpower> heroPowerList) : base(heroId, name, surname,nickname, heroPowerList)
         {
             Name = name;
             Surname = surname;
             Nickname = nickname;
-            HeroId = heroId;
-            DeedTime = deedTime;
             PowerList = heroPowerList;
-            Age = age;
         }
 
         public override void PrintInfo()
         {
             base.PrintInfo();
-            Console.WriteLine($"\n HeroID: {HeroId} " +
+            Console.WriteLine($"\n HeroID: {Id} " +
                 $"\n Deedtime: {DeedTime}");
         }
 
@@ -53,7 +47,7 @@
         public override void PrintGeneralInfo()
         {
             base.PrintGeneralInfo();
-            Console.WriteLine($"HeroID: {HeroId}");
+            Console.WriteLine($"HeroID: {Id}");
             Console.WriteLine($"Deedtime: {DeedTime}");
             Console.WriteLine("******************************************** \n \n");
         }
